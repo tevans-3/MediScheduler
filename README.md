@@ -24,6 +24,10 @@ Users upload two Excel files, one containing student data and another containing
 The application then returns an optimized schedule, where "optimized" is defined as minimizing the 
 required travel-time for students who bike/walk/use transit. 
 
+This  is basically a proof of concept. Many results for certain cities are inaccurate-- if those cities haven't been mapped to OSM, then Nominatim can't geocode them accurately. 
+
+It could easily be made accurate by using a paid geocoding service like Google's Geocoding API. 
+
 # Notes 
 Configured a Docker container to run an instance of osrm-backend to handle routing queries 
 Developed a frontend to display route and directions using leaflet and implemented an export-to-pdf option 
