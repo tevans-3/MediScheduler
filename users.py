@@ -1,8 +1,12 @@
-import geopy
-from geopy.geocoders import Nominatim 
-import requests
+from geocodio import GeocodioClient
 
-geolocator = Nominatim(user_agent="my_app")
+import pygeocodio
+from pygeocodio import GeocodioClient
+
+import my_secrets
+from my_secrets import GeocodioAPIKey
+
+client = GeocodioClient(GeocodioAPIKey)
 
 def test_bit(x,n): 
     """
@@ -22,9 +26,10 @@ class Student:
         self.ID = ID
         self.FirstName = First 
         self.LastName = Last
-        self.Address = Address 
-        self.Lat = geolocator.geocode(Address).latitude
-        self.Long = geolocator.geocode(Address).longitude
+        self.Address = Address
+        self.Geocoded = client.geocode(Address)
+        self.Lat = Geocoded.coords[0]
+        self.Long = Geocoded.coords[1]
         self.TravelMethod = Travel 
         self.Session = Session
         self.Schedule = '' 
@@ -54,7 +59,6 @@ class Student:
 
 class Teacher: 
     def __init__(self, ID, First, Last, Clinic, Address, Availability):
-        
         self.ID = ID
         self.FirstName = First 
         self.LastName = Last 
@@ -63,15 +67,14 @@ class Teacher:
         self.Lat = geolocator.geocode(Address).latitude
         self.Long = geolocator.geocode(Address).longitude
         self.AvailabilityData = Availability
-        self.Availability = 10000001
+        self.Availability = 100000000001
         self.Schedule = '' 
     
     def get_schedule(self, schedule): 
         pass 
     
     def set_availability(self): 
-        pass 
-        #for avail in self.AvailabilityData: 
+        pass
         
     def print_teacher(self):
         print(self.ID, self.FirstName, self.Lat, self.Long)
