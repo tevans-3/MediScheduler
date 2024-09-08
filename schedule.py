@@ -1,40 +1,47 @@
 import csv
 import pandas as pd 
-import geopy
-from geopy.geocoders import Nominatim
 import openpyxl
 from openpyxl import load_workbook 
 import users
 import time
 from users import Teacher, Student 
+import match
+import main_calendar
 
 INF = 1e9
+class Session: 
+    """
+    """
+    def __init__(self, ID:str, students, teachers):
+        self.ID = '' 
+        self.dates = ''
+        self.students = [student for student in students if student.Session == ID]
+        self.teachers = [teacher for teacher in teachers if ID in teacher.AvailabilityData]
+        self.optimal_schedule = {}
+    
+    def make_schedule(self): 
+        match.transit_users_first(self.students, self.teachers)
+        
 class Schedule: 
     """
     Models a schedule as a set of connected acyclic graphs 
     """
-    def __init__(self, students, teachers, Session1, Session2, 
-                       Session3, Session4, Session5, Session6): 
-        self.Session1 = Session1 
-        self.Session2 = Session2 
-        self.Session3 = Session3 
-        self.Session4 = Session4 
-        self.Session5 = Session5 
-        self.Session6 = Session6
+    def __init__(self, students, teachers): 
+        self.
         self.students = students 
-        self.teachers = teachers 
+        self.teachers = teachers
     
     def build_graph(self): 
         """
         """
         schedule = [[INF]*len(students.keys())]
-
-
+        
 def get_teacher_data(survey_responses:str):
     """
     takes as input survey responses in csv file
     assumes survey responses are organized as follows: 
         ID | FirstName | LastName | EmailAddress | Address | Availability
+    assumes Availability is a string of comma-separated date ranges, like this: "April 1 - 30 2024, May 1 - 30 2024"
     returns a dictionary mapping a teacher to sessions they can teach 
     """
     teachers = {}
@@ -47,10 +54,10 @@ def get_teacher_data(survey_responses:str):
         Last = row[2].value
         ClinicName = row[3].value
         ClinicAddress = row[4].value
-        AvailabilityData = row[5].value
+        AvailableDates = row[5].value
+        AvailabilityData = [main_calendar[date] for date in AvailableDates.split(',')]
         teacher = Teacher(ID, First, Last, ClinicName, ClinicAddress, AvailabilityData)
         teachers[ID] = teacher 
-    
     return teachers
 
 def get_student_data(survey_responses:str):
@@ -79,7 +86,8 @@ def make_student_schedules(survey_responses:dict):
     takes as input geocoded survey responses in dict 
     returns a student schedule  
     """
-    pass 
+    return 
+
 
 def main():
     file1 = "test_teacher_data.xlsx"

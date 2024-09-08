@@ -28,8 +28,8 @@ class Student:
         self.LastName = Last
         self.Address = Address
         self.Geocoded = client.geocode(Address)
-        self.Lat = Geocoded.coords[0]
-        self.Long = Geocoded.coords[1]
+        self.Lat = Geocoded.coords[1]
+        self.Long = Geocoded.coords[0]
         self.TravelMethod = Travel 
         self.Session = Session
         self.Schedule = '' 
@@ -37,7 +37,7 @@ class Student:
     def get_name(self): 
         return First + ' ' + Last
     
-    def get_distance_to(self, teacher, osrm_server_url):
+    def OSRM_get_distance_to(self, teacher, osrm_server_url):
         t_lat = teacher.Lat 
         t_long = teacher.Long 
         t_longlat = str(t_long)+','+str(t_lat)+';'
@@ -47,8 +47,14 @@ class Student:
         response = requests.get(request_url) 
         jsonified = json.loads(response.text)
         distance = jsonified["routes"][0]["duration"]
-        return distance         
+        return distance
     
+    def OX_get_distance_to(self, teacher):
+        pass
+
+    def get_directions_to(self, teacher, osrm_server_url): 
+        pass
+
     def get_scheduled_teacher(self, schedule): 
         my_session = self.Session 
         ssn = schedule.my_session 
@@ -64,8 +70,9 @@ class Teacher:
         self.LastName = Last 
         self.ClinicName = Clinic 
         self.ClinicAddress = Address
-        self.Lat = geolocator.geocode(Address).latitude
-        self.Long = geolocator.geocode(Address).longitude
+        self.Geocoded = client.geocode(Address)
+        self.Lat = Geocoded.coords[1]
+        self.Long = Geocoded.coords[0]
         self.AvailabilityData = Availability
         self.Availability = 100000000001
         self.Schedule = '' 
@@ -74,7 +81,7 @@ class Teacher:
         pass 
     
     def set_availability(self): 
-        pass
-        
+        for data in self.AvailabilityData: 
+            
     def print_teacher(self):
         print(self.ID, self.FirstName, self.Lat, self.Long)
