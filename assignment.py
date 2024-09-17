@@ -17,20 +17,16 @@
 
 #Objective function: 
 #Minimize Z = SUM N i= 1 SUM M j = 1 d_ij x_ij
-#subject to the constraints 
-
-#Constraints:
-#The initial optimal solution requires that no student who bikes, walks, or uses transit
-#travel more than 5km to reach the assigned training site. This constraint will be successively
-#relaxed if necessary, until a feasible schedule is reached. This can be written 
-#dist_BWT <= 5. 
+#subject to the constraints: 
+#SUM N i = 1 x_ij, j = 1,2,...,n
+#SUM M j = 1 x_ij, i = 1,2,...,n
 
 #Each site can accept at most one student at a time. 
 
 #Objective function: 
 #We want to minimize the total distance travelled by students who bike, walk, or use transit.
 
-class LPModel: 
+class APModel: 
     def __init__(self, parameters):
         """
         """
