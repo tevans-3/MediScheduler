@@ -1,7 +1,7 @@
 from geocodio import GeocodioClient
 
-import pygeocodio
-from pygeocodio import GeocodioClient
+#import pygeocodio
+#from pygeocodio import GeocodioClient
 
 import my_secrets
 from my_secrets import GeocodioAPIKey
@@ -32,6 +32,7 @@ class Student:
         self.Long = Geocoded.coords[0]
         self.TravelMethod = Travel 
         self.Session = Session
+        self.Distances = []
         self.Schedule = '' 
     
     def get_name(self): 
@@ -54,6 +55,10 @@ class Student:
 
     def get_directions_to(self, teacher, osrm_server_url): 
         pass
+    
+    def get_distances_to(self, teachers): 
+        for teacher in teachers: 
+            self.Distances.append(OX_get_distance_to(teacher))
 
     def get_scheduled_teacher(self, schedule): 
         my_session = self.Session 
@@ -82,6 +87,7 @@ class Teacher:
     
     def set_availability(self): 
         for data in self.AvailabilityData: 
+            pass
             
     def print_teacher(self):
         print(self.ID, self.FirstName, self.Lat, self.Long)

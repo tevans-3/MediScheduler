@@ -19,22 +19,20 @@ class Session:
         self.teachers = [teacher for teacher in teachers if ID in teacher.AvailabilityData]
         self.optimal_schedule = {}
     
-    def make_schedule(self): 
-        match.transit_users_first(self.students, self.teachers)
-        
 class Schedule: 
     """
-    Models a schedule as a set of connected acyclic graphs 
+    Builds a schedule by solving an instance of the unbalanced assignment problem
     """
     def __init__(self, students, teachers): 
-        self.
         self.students = students 
         self.teachers = teachers
+        self.all_possible = [(std,tchr) for std,tchr in list(zip(self.students, self.teachers))]
     
-    def build_graph(self): 
+    def build_matrix(self): 
         """
         """
-        schedule = [[INF]*len(students.keys())]
+        schedule = [[0]*len(teachers.keys) for student in self.students] 
+
         
 def get_teacher_data(survey_responses:str):
     """
@@ -86,8 +84,7 @@ def make_student_schedules(survey_responses:dict):
     takes as input geocoded survey responses in dict 
     returns a student schedule  
     """
-    return 
-
+    pass
 
 def main():
     file1 = "test_teacher_data.xlsx"

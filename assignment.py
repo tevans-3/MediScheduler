@@ -25,9 +25,13 @@
 
 #Objective function: 
 #We want to minimize the total distance travelled by students who bike, walk, or use transit.
+import numpy as np 
+cost = np.array([[4, 1, 3], [2, 0, 5], [3, 2, 2]])
+from scipy.optimize import linear_sum_assignment
+row_ind, col_ind = linear_sum_assignment(cost)
+print(row_ind, col_ind)
 
 class APModel: 
     def __init__(self, parameters):
         """
         """
-
