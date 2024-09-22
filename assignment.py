@@ -31,7 +31,18 @@ from scipy.optimize import linear_sum_assignment
 row_ind, col_ind = linear_sum_assignment(cost)
 print(row_ind, col_ind)
 
-class APModel: 
+class ScipyLinearSumAssignment: 
+    def __init__(self, cost): 
+        self.run = linear_sum_assignment(cost)
+        self.row_ind = self.run[0]
+        self.col_ind = self.run[1]
+        self.matches = [(x,y) for x,y in zip(self.row_ind, self.col_ind)]
+
+        def get_matches(self):
+            return matches 
+
+class HungarianAlgorithm: 
     def __init__(self, parameters):
         """
         """
+        pass
