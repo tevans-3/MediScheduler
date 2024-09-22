@@ -7,6 +7,7 @@ import time
 from users import Teacher, Student 
 import match
 import main_calendar
+import assignment
 
 INF = 1e9
 class Session: 
@@ -26,14 +27,24 @@ class Schedule:
     def __init__(self, students, teachers): 
         self.students = students 
         self.teachers = teachers
-        self.all_possible = [(std,tchr) for std,tchr in list(zip(self.students, self.teachers))]
-    
-    def build_matrix(self): 
-        """
-        """
-        schedule = [[0]*len(teachers.keys) for student in self.students] 
+        self.enum_students = enumerate(students)
+        self.enum_teachers = enumerate(teachers)
+        self.dist_matrix = self.build_matrix(self.students, self.teachers)
+        self.matches = []
 
+    def build_matrix(self, students, teachers): 
+        """
+        """
+        schedule_by_OSRM = [[student.OSRM_get_distance_to(teacher[1]) for teacher in enum_teachers] for student in enum_students]
+        schedule_by_OX = [[student.OSRM_get_distance_to(teacher[1]) for teacher in enum_teachers] for student in enum_students]
+        return matrix
         
+    
+    def SCIPY_get_matches(self):
+        solver = ScipyLinearSumAssignment(self.dist_matrix)
+        matches = solver.get_matches()
+        return matches
+
 def get_teacher_data(survey_responses:str):
     """
     takes as input survey responses in csv file
@@ -97,4 +108,3 @@ def main():
 
 if __name__=="__main__": 
     main()
-
