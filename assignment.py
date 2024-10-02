@@ -39,7 +39,7 @@ class ScipyLinearSumAssignment:
         self.matches = [(x,y) for x,y in zip(self.row_ind, self.col_ind)]
 
         def get_matches(self):
-            return matches 
+            return self.matches 
 
 class HungarianAlgorithm: 
     def __init__(self, parameters):
