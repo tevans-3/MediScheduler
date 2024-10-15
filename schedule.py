@@ -32,12 +32,12 @@ class Schedule:
         self.dist_matrix = self.build_matrix(self.students, self.teachers)
         self.matches = []
 
-    def build_matrix(self, students, teachers): 
+    def build_matrix(self, students, teachers, use_OSRM=1): 
         """
         """
         schedule_by_OSRM = [[student.OSRM_get_distance_to(teacher[1]) for teacher in enum_teachers] for student in enum_students]
         schedule_by_OX = [[student.OSRM_get_distance_to(teacher[1]) for teacher in enum_teachers] for student in enum_students]
-        return matrix
+        return schedule_by_OSRM if use_OSRM else schedule_by_ox
         
     
     def SCIPY_get_matches(self):
