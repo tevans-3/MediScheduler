@@ -37,7 +37,7 @@ class Schedule:
         """
         schedule_by_OSRM = [[student.OSRM_get_distance_to(teacher[1]) for teacher in enum_teachers] for student in enum_students]
         schedule_by_OX = [[student.OSRM_get_distance_to(teacher[1]) for teacher in enum_teachers] for student in enum_students]
-        return schedule_by_OSRM if use_OSRM else schedule_by_ox
+        return schedule_by_OSRM if use_OSRM else schedule_by_OX
         
     
     def SCIPY_get_matches(self):
